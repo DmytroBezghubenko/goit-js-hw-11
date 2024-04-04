@@ -11,21 +11,21 @@ import { createMarkup } from "./js/render-functions.js";
 const form = document.querySelector(".form");
 const list = document.querySelector('.gallery');
 const loader = document.getElementById('loader');
+const input = document.querySelector('#nameImg');
 
 form.addEventListener("submit", handleSubmit);
 
 function handleSubmit(event) {
     event.preventDefault();
 
-    const inputValue = event.currentTarget.elements.nameImg.value;
-    if (inputValue === "") {
+    console.log(input.value);
+    if (input.value === "") {
         iziToast.error({
             position: 'topRight',
             message: 'The field is empty! Enter image name!',
         });
         return;
-    }
-
+    } 
     const { nameImg } = event.currentTarget.elements;
 
     loader.style.display = 'inline-block';
@@ -44,7 +44,9 @@ function handleSubmit(event) {
         .catch(error => alert(error))
         .finally(() => {
             loader.style.display = 'none';
+            
         });
+    input.value = "";
 }
 function initializeLightbox() {
     let gallery = new SimpleLightbox('.gallery a', {
